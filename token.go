@@ -27,7 +27,7 @@ import (
 // 调用此接口登录成功后，响应头里会返回XSRF-TOKEN。
 // 每一次接口调用都会生成一个新的Token，先前获取的Token会失效
 // 调用登录接口获取token，用于访问其他数据查询接口和控制接口的身份认证
-func (c *Client) Login() error {
+func (c *Client) login() error {
 	var request = loginRequest{
 		UserName:   c.userName,
 		SystemCode: c.password,
@@ -38,7 +38,7 @@ func (c *Client) Login() error {
 		return err
 	}
 	buf := bytes.NewBuffer(requestBytes)
-	token, err := c.LoginDoRequest("/thirdData/login", buf)
+	token, err := c.loginDoRequest("/thirdData/login", buf)
 	if err != nil {
 		return err
 	}
@@ -46,7 +46,7 @@ func (c *Client) Login() error {
 }
 
 // 登录接口访问
-func (c *Client) LoginDoRequest(url string, buf io.Reader) (string, error) {
+func (c *Client) loginDoRequest(url string, buf io.Reader) (string, error) {
 	req, _ := http.NewRequest("POST", ManagementSystemDomainName+url, buf)
 	req.Header.Set("Content-Type", "application/json")
 	var response Response
@@ -172,7 +172,7 @@ func (c *Client) getTokenFromRedis() (string, error) {
 		return "", err
 	}
 	if token == "" {
-		err = c.Login()
+		err = c.login()
 		if err != nil {
 			return "", err
 		}
