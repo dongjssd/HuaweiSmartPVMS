@@ -261,10 +261,10 @@ type DevKpiDayParamsResponse struct {
 
 // 设备日数据接口 返回值对象
 type DevKpiDayDataResponse struct {
-	DevId       int64                  `json:"devId"`       //设备编号
-	Sn          string                 `json:"sn"`          //设备SN号
-	CollectTime int64                  `json:"collectTime"` //采集时间毫秒数
-	DataItemMap map[string]interface{} `json:"dataItemMap"` //每个数据项的内容，用key-value形式返回，不同设备类型的数据项内容不一样，数据项列表参见下方设备日数据接口
+	DevId       int64           `json:"devId"`       //设备编号
+	Sn          string          `json:"sn"`          //设备SN号
+	CollectTime int64           `json:"collectTime"` //采集时间毫秒数
+	DataItemMap json.RawMessage `json:"dataItemMap"` //每个数据项的内容，用key-value形式返回，不同设备类型的数据项内容不一样，数据项列表参见下方设备日数据接口
 }
 
 // 设备月数据接口
@@ -317,12 +317,18 @@ type DevKpiMonthParamsResponse struct {
 	CurrentTime int64  `json:"currentTime"` //系统当前时间毫秒数
 }
 
+type InverterKpiMonthDataItem struct {
+	ProductPower      float64 `json:"product_power"`
+	PerpowerRatio     float64 `json:"perpower_ratio"`
+	InstalledCapacity float64 `json:"installed_capacity"`
+}
+
 // 设备月数据接口 返回值对象
 type DevKpiMonthDataResponse struct {
-	DevId       int64                  `json:"devId"`       //设备编号
-	Sn          string                 `json:"sn"`          //设备SN号
-	CollectTime int64                  `json:"collectTime"` //采集时间毫秒数
-	DataItemMap map[string]interface{} `json:"dataItemMap"` //每个数据项的内容，用key-value形式返回，不同设备类型的数据项内容不一样，数据项列表参见下方设备日数据接口
+	DevId       int64           `json:"devId"`       //设备编号
+	Sn          string          `json:"sn"`          //设备SN号
+	CollectTime int64           `json:"collectTime"` //采集时间毫秒数
+	DataItemMap json.RawMessage `json:"dataItemMap"` //每个数据项的内容，用key-value形式返回，不同设备类型的数据项内容不一样，数据项列表参见下方设备日数据接口
 }
 
 // 设备年数据接口

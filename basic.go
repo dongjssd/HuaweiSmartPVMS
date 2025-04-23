@@ -36,7 +36,7 @@ func (c *Client) Stations(pageNo int, gridConnectedStartTime, gridConnectedEndTi
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("body:%+v", string(body))
+	// fmt.Printf("body:%+v", string(body))
 	response := StationResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -97,7 +97,7 @@ func (c *Client) DevList(stationCodes string) (*DevListResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("body:%+v", string(body))
+	// fmt.Printf("body:%+v", string(body))
 	response := DevListResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -105,7 +105,7 @@ func (c *Client) DevList(stationCodes string) (*DevListResponse, error) {
 	return &response, nil
 }
 
-// 设备列表接口 结果结构提
+// 设备列表接口 结果结构体
 type DevListResponse struct {
 	Success  bool                  `json:"success"` //请求成功或失败标识 true：请求成功 false：请求失败
 	FailCode int                   `json:"failCode"`
@@ -114,15 +114,15 @@ type DevListResponse struct {
 }
 
 type DevListDataResponse struct {
-	Id              int64  `json:"id"`              //设备ID（设备编号）
-	DevDn           string `json:"devDn"`           //设备唯一ID（系统中设备唯一编号）
-	DevName         string `json:"devName"`         //设备名称
-	StationCode     string `json:"stationCode"`     //电站编号
-	EsnCode         string `json:"esnCode"`         //设备SN号
-	DevTypeId       int    `json:"devTypeId"`       //设备类型ID
-	SoftwareVersion string `json:"softwareVersion"` //软件版本号
-	OptimizerNumber int    `json:"optimizerNumber"` //优化器数量
-	InvType         string `json:"invType"`         //机型（只有逆变器有机型）
-	Longitude       string `json:"longitude"`       //经度
-	Latitude        string `json:"latitude"`        //纬度
+	Id              int64   `json:"id"`              //设备ID（设备编号）
+	DevDn           string  `json:"devDn"`           //设备唯一ID（系统中设备唯一编号）
+	DevName         string  `json:"devName"`         //设备名称
+	StationCode     string  `json:"stationCode"`     //电站编号
+	EsnCode         string  `json:"esnCode"`         //设备SN号
+	DevTypeId       int     `json:"devTypeId"`       //设备类型ID
+	SoftwareVersion string  `json:"softwareVersion"` //软件版本号
+	OptimizerNumber int     `json:"optimizerNumber"` //优化器数量
+	InvType         string  `json:"invType"`         //机型（只有逆变器有机型）
+	Longitude       float64 `json:"longitude"`       //经度
+	Latitude        float64 `json:"latitude"`        //纬度
 }
