@@ -42,7 +42,7 @@ func (c *Client) AlarmList(stationCodes, sns string, beginTime, endTime int64,
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("body:%+v", string(body))
+	// fmt.Printf("body:%+v", string(body))
 	response := AlarmListResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err

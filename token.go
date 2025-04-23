@@ -1,9 +1,3 @@
-/**
-    @author: dongjs
-    @date: 2025/1/10
-    @description:
-**/
-
 package HuaweiSmartPVMS
 
 import (
@@ -12,11 +6,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/go-redsync/redsync/v4"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	"github.com/go-redsync/redsync/v4"
 )
 
 // 此接口在10分钟内连续输入5次错误密码，API账户将被锁定，锁定时长为30分钟。
@@ -38,6 +33,7 @@ func (c *Client) login() error {
 		return err
 	}
 	buf := bytes.NewBuffer(requestBytes)
+	fmt.Println(string(requestBytes))
 	token, err := c.loginDoRequest("/thirdData/login", buf)
 	if err != nil {
 		return err
@@ -59,6 +55,7 @@ func (c *Client) loginDoRequest(url string, buf io.Reader) (string, error) {
 		return "", err
 	}
 	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(body))
 	defer resp.Body.Close()
 	if err = json.Unmarshal(body, &response); err != nil {
 		return "", err
@@ -150,7 +147,7 @@ func (c *Client) setTokenToRedis(token string) error {
 	defer func(mutex *redsync.Mutex) {
 		_, _ = mutex.Unlock()
 	}(mutex)
-	return c.redisClient.Set(context.Background(), c.userName, token, 30*time.Second).Err()
+	return c.redisClient.Set(context.Background(), c.getTokenKey(), token, 20*time.Minute).Err()
 }
 
 // 读取redis中的token
@@ -167,7 +164,7 @@ func (c *Client) getTokenFromRedis() (string, error) {
 		_, _ = mutex.Unlock()
 	}(mutex)
 
-	token, err := c.redisClient.Get(context.Background(), c.userName).Result()
+	token, err := c.redisClient.Get(context.Background(), c.getTokenKey()).Result()
 	if err != nil && err.Error() != "redis: nil" {
 		return "", err
 	}
@@ -176,11 +173,16 @@ func (c *Client) getTokenFromRedis() (string, error) {
 		if err != nil {
 			return "", err
 		}
-		token, err = c.redisClient.Get(context.Background(), c.userName).Result()
+		token, err = c.redisClient.Get(context.Background(), c.getTokenKey()).Result()
 		if err != nil && err.Error() != "redis: nil" {
 			return "", err
 		}
+		//fmt.Println(token)
 		return token, nil
 	}
+	//fmt.Println(token)
 	return token, nil
+}
+func (c *Client) getTokenKey() string {
+	return "huawei_smart_pvms:token:" + c.userName
 }
