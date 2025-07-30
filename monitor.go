@@ -247,10 +247,10 @@ func (c *Client) DevHistoryKpi(devIds, sns string, devTypeId int, startTime, end
 
 // 设备历史数据接口 返回参数
 type DevHistoryKpiResponse struct {
-	Success  bool                      `json:"success"` //请求成功或失败标识 true：请求成功 false：请求失败
-	FailCode int                       `json:"failCode"`
-	Message  string                    `json:"message"`
-	Data     DevHistoryKpiDataResponse `json:"data"`
+	Success  bool                        `json:"success"` //请求成功或失败标识 true：请求成功 false：请求失败
+	FailCode int                         `json:"failCode"`
+	Message  string                      `json:"message"`
+	Data     []DevHistoryKpiDataResponse `json:"data"`
 }
 
 // 设备历史数据接口 返回参数
