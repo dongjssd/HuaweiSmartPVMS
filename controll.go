@@ -9,7 +9,6 @@ package HuaweiSmartPVMS
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 // 储能工作模式设置任务下发接口
@@ -20,13 +19,13 @@ func (c *Client) BatteryModeAsyncTask(request BatteryModeAsyncTaskRequest) (*Bat
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/rest/openapi/pvms/nbi/v1/control/battery/mode/async-task", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := BatteryModeAsyncTaskResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -87,13 +86,13 @@ func (c *Client) BatteryModeTaskInfo(taskId string) (*BatteryModeTaskInfoRespons
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/rest/openapi/pvms/nbi/v1/control/battery/mode/task-info", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := BatteryModeTaskInfoResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -143,13 +142,13 @@ func (c *Client) BatteryConfigurationAsyncTask(request BatteryConfigurationAsync
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/rest/openapi/pvms/nbi/v1/control/battery/configuration/async-task", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := BatteryConfigurationAsyncTaskResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -207,13 +206,13 @@ func (c *Client) BatteryConfigurationTaskInfo(taskId string) (*BatteryConfigurat
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/rest/openapi/pvms/nbi/v1/control/battery/configuration/task-info", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := BatteryConfigurationTaskInfoResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -257,13 +256,13 @@ func (c *Client) ActivePowerControlAsyncTask(request ActivePowerControlAsyncTask
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/rest/openapi/pvms/nbi/v2/control/active-power-control/async-task", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := ActivePowerControlAsyncTaskResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -317,13 +316,13 @@ func (c *Client) ActivePowerControlTaskInfo(taskId string) (*ActivePowerControlT
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/rest/openapi/pvms/nbi/v2/control/active-power-control/task-info", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := ActivePowerControlTaskInfoResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err

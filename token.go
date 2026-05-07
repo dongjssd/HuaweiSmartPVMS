@@ -33,7 +33,7 @@ func (c *Client) login() error {
 		return err
 	}
 	buf := bytes.NewBuffer(requestBytes)
-	fmt.Println(string(requestBytes))
+
 	token, err := c.loginDoRequest("/thirdData/login", buf)
 	if err != nil {
 		return err
@@ -55,7 +55,6 @@ func (c *Client) loginDoRequest(url string, buf io.Reader) (string, error) {
 		return "", err
 	}
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(body))
 	defer resp.Body.Close()
 	if err = json.Unmarshal(body, &response); err != nil {
 		return "", err
@@ -177,10 +176,9 @@ func (c *Client) getTokenFromRedis() (string, error) {
 		if err != nil && err.Error() != "redis: nil" {
 			return "", err
 		}
-		//fmt.Println(token)
+
 		return token, nil
 	}
-	//fmt.Println(token)
 	return token, nil
 }
 func (c *Client) getTokenKey() string {

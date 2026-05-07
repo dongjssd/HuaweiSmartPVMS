@@ -9,7 +9,6 @@ package HuaweiSmartPVMS
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 // 查询活动告警接口
@@ -36,13 +35,13 @@ func (c *Client) AlarmList(stationCodes, sns string, beginTime, endTime int64,
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getAlarmList", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := AlarmListResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
