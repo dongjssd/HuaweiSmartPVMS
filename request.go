@@ -24,7 +24,6 @@ type CommonResponse struct {
 
 // 请求方法
 func (c *Client) doRequest(url string, buf io.Reader) ([]byte, error) {
-	fmt.Println("\033[97;34m", "call:", url, "\033[0m")
 	req, _ := http.NewRequest("POST", ManagementSystemDomainName+url, buf)
 	req.Header.Set("Content-Type", "application/json")
 	token, err := c.getTokenFromRedis() //获取redis中的token
@@ -43,7 +42,6 @@ func (c *Client) doRequest(url string, buf io.Reader) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("%s%s%s\n", "\033[97;35m", string(body), "\033[0m")
 	var check CommonResponse
 	err = json.Unmarshal(body, &check)
 	if err != nil {

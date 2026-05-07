@@ -9,7 +9,6 @@ package HuaweiSmartPVMS
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 // 电站实时数据接口
@@ -23,7 +22,7 @@ func (c *Client) StationRealKpi(stationCodes string) (*StationRealKpiResponse, e
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getStationRealKpi", buf)
 	if err != nil {
@@ -79,7 +78,7 @@ func (c *Client) DevRealKpi(devIds, sns string, devTypeId int) (*DevRealKpiRespo
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getDevRealKpi", buf)
 
@@ -232,7 +231,7 @@ func (c *Client) DevHistoryKpi(devIds, sns string, devTypeId int, startTime, end
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getDevHistoryKpi", buf)
 	if err != nil {

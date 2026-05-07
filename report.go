@@ -9,7 +9,6 @@ package HuaweiSmartPVMS
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 // 电站小时数据接口
@@ -27,7 +26,7 @@ func (c Client) KpiStationHour(stationCodes string, collectTime int64) (*KpiStat
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getKpiStationHour", buf)
 	if err != nil {
@@ -76,7 +75,7 @@ func (c *Client) KpiStationDay(stationCodes string, collectTime int64) (*KpiStat
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getKpiStationDay", buf)
 	if err != nil {
@@ -125,7 +124,7 @@ func (c *Client) KpiStationMonth(stationCodes string, collectTime int64) (*KpiSt
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getKpiStationMonth", buf)
 	if err != nil {
@@ -173,7 +172,7 @@ func (c *Client) KpiStationYear(stationCodes string, collectTime int64) (*KpiSta
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getKpiStationYear", buf)
 	if err != nil {
@@ -228,7 +227,7 @@ func (c *Client) DevKpiDay(devIds, sns string, devTypeId int, collectTime int64)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getDevKpiDay", buf)
 	if err != nil {
@@ -286,7 +285,7 @@ func (c *Client) DevKpiMonth(devIds, sns string, devTypeId int, collectTime int6
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getDevKpiMonth", buf)
 	if err != nil {
@@ -349,7 +348,7 @@ func (c *Client) DevKpiYear(devIds, sns string, devTypeId int, collectTime int64
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getDevKpiYear", buf)
 	if err != nil {

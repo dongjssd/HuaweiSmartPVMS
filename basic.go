@@ -9,7 +9,6 @@ package HuaweiSmartPVMS
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 // 接口描述
@@ -30,13 +29,13 @@ func (c *Client) Stations(pageNo int, gridConnectedStartTime, gridConnectedEndTi
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/stations", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := StationResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
@@ -91,13 +90,13 @@ func (c *Client) DevList(stationCodes string) (*DevListResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("requestBytes:", string(requestBytes))
+
 	buf := bytes.NewBuffer(requestBytes)
 	body, err := c.doRequest("/thirdData/getDevList", buf)
 	if err != nil {
 		return nil, err
 	}
-	// fmt.Printf("body:%+v", string(body))
+
 	response := DevListResponse{}
 	if err = json.Unmarshal(body, &response); err != nil {
 		return nil, err
